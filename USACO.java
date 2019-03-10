@@ -91,7 +91,7 @@ public class USACO{
   public static char[][] board;
   public static int silver(String filename){
     String together = "";
-    int[][] moves = {{0,1}, {0,-1}, {1,0}, {-1, 0}};
+    int[][] moves = {{0,1}, {0,-1}, {1,0}, {-1, 0}}; //up down left and right moves
     int rows = 0;
     int cols= 0;
     int time = 0;
@@ -116,12 +116,12 @@ public class USACO{
       board = new char[rows][cols];
       for(int r = 0; r < rows; r++){
         for(int c = 0; c < cols; c++){
-          board[r][c] = together.charAt(index);
+          board[r][c] = together.charAt(index); //copying over the values into the board
           index++;
         }
       }
-      String[] nums = path.split(" ");
-      startr = Integer.parseInt(nums[0]) - 1;
+      String[] nums = path.split(" "); //separating the spaces
+      startr = Integer.parseInt(nums[0]) - 1; //changing to regular index
       startc = Integer.parseInt(nums[1]) - 1;
       endr = Integer.parseInt(nums[2]) - 1;
       endc = Integer.parseInt(nums[3]) - 1;
@@ -131,13 +131,13 @@ public class USACO{
     int[][] previous = new int[rows][cols];
     for(int r = 0; r < rows; r++){
       for(int c = 0; c < cols; c++){
-        if(board[r][c] == '*'){
+        if(board[r][c] == '*'){ //can't go to this spot so mark with -1
           current[r][c] = -1;
         }
       }
     }
     current[startr][startc] = 1;
-    while(time > 0){
+    while(time > 0){ //while there is still time
       for(int r = 0; r < rows; r++){
         for(int c = 0; c < cols; c++){
           previous[r][c] = current[r][c];
@@ -148,7 +148,7 @@ public class USACO{
           if(board[r][c] != '*'){
             current[r][c] = 0;
             for(int i = 0; i < moves.length; i++){
-              int checkr = r + moves[i][0];
+              int checkr = r + moves[i][0]; //see if it is out of bounds
               int checkc = c + moves[i][1];
               if(checkr < rows && checkc < cols && checkr >= 0 && checkc >= 0 && previous[checkr][checkc]!= -1){
                 current[r][c] += previous[checkr][checkc];
@@ -157,7 +157,7 @@ public class USACO{
           }
         }
       }
-      time --;
+      time --; //continuing the loop
     }
     return current[endr][endc];
   }
