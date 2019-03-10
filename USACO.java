@@ -39,7 +39,24 @@ public class USACO{
     for(int i = 0; i < moves.length; i++){
       stomping(moves[i][0],moves[i][1],moves[i][2]);
     }
-    return 1;
+    int finald = instructions[2];
+    for(int r = 0; r < pasture.length; r++){
+      for(int c = 0; c < pasture[0].length; c++){
+        if(pasture[r][c] > finald){
+          pasture[r][c] = 0;
+        }
+        else{
+          pasture[r][c] = finald - pasture[r][c];
+        }
+      }
+    }
+    int total = 0;
+    for(int r = 0; r < pasture.length; r++){
+      for(int c = 0; c < pasture[0].length; c++){
+        total += pasture[r][c];
+      }
+    }
+    return 72 * 72 * total;
   }
   public static void stomping(int row, int col, int depth){
     int max = 0;
