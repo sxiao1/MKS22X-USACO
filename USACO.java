@@ -103,6 +103,7 @@ public class USACO{
       File text = new File(filename);
       Scanner in = new Scanner(text);
       rows = in.nextInt();
+      //System.out.println(rows);
       cols = in.nextInt();
       time = in.nextInt();
       in.nextLine();
@@ -136,7 +137,28 @@ public class USACO{
       }
     }
     current[startr][startc] = 1;
-    return 1;
-
+    while(time > 0){
+      for(int r = 0; r < rows; r++){
+        for(int c = 0; c < cols; c++){
+          previous[r][c] = current[r][c];
+        }
+      }
+      for(int r = 0; r < rows; r++){
+        for(int c = 0; c < cols; c++){
+          if(board[r][c] != '*'){
+            current[r][c] = 0;
+            for(int i = 0; i < moves.length; i++){
+              int checkr = r + moves[i][0];
+              int checkc = c + moves[i][1];
+              if(checkr < rows && checkc < cols && checkr >= 0 && checkc >= 0 && previous[checkr][checkc]!= -1){
+                current[r][c] += previous[checkr][checkc];
+              }
+            }
+          }
+        }
+      }
+      time --;
+    }
+    return current[endr][endc];
   }
 }
