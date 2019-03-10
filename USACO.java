@@ -1,33 +1,45 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 public class USACO{
-  private int col;
-  private int row;
-  private int[][] pasture;
-  private int finallvl;
-  private int[][] instruct;
-  public USACO (String filename)throws FileNotFoundException{
+  public static int[][] pasture;
+
+  public static int bronze(String filename){
+    int instructions[] = new int[4];
+    ArrayList<Integer> nums = new ArrayList<Integer>();
     try{
-      File text = new File("makelake.1.in");
+      File text = new File(filename);
       Scanner in = new Scanner(text);
-      String line = in.nextLine();
-      for(int i = 0; i < line.length(); i++){
-      }
-      }
-      catch(NumberFormatException e){}
-    //pasture;
-    //finallvl = 0;
-    //instruct = 0;
-    for(int r = 0; r < pasture.length; r ++){
-      for(int c = 0; c < pasture.length; c ++){
-        //pasure[r][c] = ary[r][c];
+      while(in.hasNextInt()){
+        nums.add(in.nextInt());
       }
     }
-
+    catch(FileNotFoundException e){}
+    for(int i = 0; i < 4; i++){
+      instructions[i] = nums.get(0);
+      nums.remove(0);
+    }
+    int row = instructions[0];
+    int col = instructions[1];
+    /*System.out.println(row);
+    System.out.println(col); making sure the right numbers get added to array */
+    pasture = new int[row][col];
+    for(int r = 0; r < row; r ++){
+      for(int c = 0; c < col; c++){
+        pasture[r][c] = nums.get(0);
+        nums.remove(0);
+      }
+    }
+    int[][] moves = new int[instructions[3]][3];
+    return 1;
   }
-
-  public void cowStomp(int r, int c, int num){
-    pasture[r - 1][c - 1] = pasture[r - 1][c - 1] - num;
+  public static String returnString(){
+    String newstr = "";
+    for(int r = 0; r < pasture.length; r++){
+      for(int c = 0; c < pasture[0].length; c++){
+        newstr += "" + pasture[r][c];
+      }
+      newstr += "\n";
+    }
+    return newstr;
   }
 }
