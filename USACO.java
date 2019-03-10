@@ -92,12 +92,19 @@ public class USACO{
   public static int silver(String filename){
     String together = "";
     int[][] moves = {{0,1}, {0,-1}, {1,0}, {-1, 0}};
+    int rows = 0;
+    int cols= 0;
+    int time = 0;
+    int startr = 0;
+    int startc = 0;
+    int endr = 0;
+    int endc = 0;
     try{
       File text = new File(filename);
       Scanner in = new Scanner(text);
-      int rows = in.nextInt();
-      int cols = in.nextInt();
-      int time = in.nextInt();
+      rows = in.nextInt();
+      cols = in.nextInt();
+      time = in.nextInt();
       in.nextLine();
       String path = "";
       while(in.hasNextLine()){
@@ -113,8 +120,23 @@ public class USACO{
         }
       }
       String[] nums = path.split(" ");
+      startr = Integer.parseInt(nums[0]) - 1;
+      startc = Integer.parseInt(nums[1]) - 1;
+      endr = Integer.parseInt(nums[2]) - 1;
+      endc = Integer.parseInt(nums[3]) - 1;
     }
     catch(FileNotFoundException e){}
+    int[][] current = new int[rows][cols];
+    int[][] previous = new int[rows][cols];
+    for(int r = 0; r < rows; r++){
+      for(int c = 0; c < cols; c++){
+        if(board[r][c] == '*'){
+          current[r][c] = -1;
+        }
+      }
+    }
+    current[startr][startc] = 1;
     return 1;
+
   }
 }
